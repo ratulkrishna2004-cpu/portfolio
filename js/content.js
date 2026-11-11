@@ -23,7 +23,11 @@ window.DEFAULT_CONTENT = {
     tagline: "EEE Student & Graphic Designer",
     description: "Building **robots, IoT systems** and **visual identities** — while leading teams, mentoring Olympiad students and running the tech behind large-scale events.",
     badge: "AUST · EEE · 2024 —",
-    photo: "profile.jpg"
+    photo: "profile.jpg",   // file name inside the images/ folder
+    photoZoom: 1,           // 1 = normal, 1.5 = zoomed in, 0.8 = zoomed out
+    photoX: 0,              // move right (+) / left (-), in % of the frame
+    photoY: 0,              // move down (+) / up (-), in % of the frame
+    photoFrame: "on"        // "off" = no coloured box (for transparent PNG photos)
   },
   stats: [
     { value: "{awards}", label: "Total awards" },   // {awards} = number of entries in the awards list

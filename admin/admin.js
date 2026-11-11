@@ -101,10 +101,91 @@ function panel(sec) {
   return el;
 }
 
+/* Photo: drag to move, scroll or slider to zoom, optional "no box" for transparent photos */
+function photoPanel() {
+  const h = data.hero;
+  h.photoZoom = parseFloat(h.photoZoom) || 1;
+  h.photoX = parseFloat(h.photoX) || 0;
+  h.photoY = parseFloat(h.photoY) || 0;
+  if (h.photoFrame !== "off") h.photoFrame = "on";
+
+  const el = document.createElement("section");
+  el.className = "panel";
+  el.innerHTML = `
+    <h2>Home — photo position</h2>
+    <p>Drag the photo to move it. Scroll on it or use the slider to zoom. The photo file itself is the name typed in "Photo file name" above.</p>
+    <div class="pp">
+      <div class="pp__stage"><div class="pp__frame" id="ppFrame"><img id="ppImg" alt="" draggable="false"></div></div>
+      <div class="pp__side">
+        <label>Zoom <span id="ppZoomTxt"></span><input type="range" id="ppZoom" min="0.4" max="3" step="0.01"></label>
+        <label class="check"><input type="checkbox" id="ppBox"> Coloured box behind the photo</label>
+        <p class="pp__tip">Turn the box off for a transparent (cut-out) PNG so the ring design shows behind you.</p>
+        <button type="button" class="btn btn--ghost" id="ppReset">Reset position</button>
+        <p class="msg" id="ppMsg"></p>
+      </div>
+    </div>`;
+  const q = (id) => el.querySelector("#" + id);
+  const frame = q("ppFrame"), img = q("ppImg");
+
+  const apply = () => {
+    img.style.transform = `translate(${h.photoX}%, ${h.photoY}%) scale(${h.photoZoom})`;
+    frame.classList.toggle("no-frame", h.photoFrame === "off");
+    q("ppZoom").value = h.photoZoom;
+    q("ppZoomTxt").textContent = Math.round(h.photoZoom * 100) + "%";
+    q("ppBox").checked = h.photoFrame !== "off";
+  };
+  const load = () => {
+    q("ppMsg").textContent = "";
+    img.hidden = false;
+    img.src = "../images/" + (h.photo || "profile.jpg");
+  };
+  img.addEventListener("error", () => {
+    img.hidden = true;
+    q("ppMsg").textContent = `"${h.photo}" was not found in the images folder.`;
+  });
+  el._reloadPhoto = load;
+
+  let start = null;
+  frame.addEventListener("pointerdown", (e) => {
+    start = { x: e.clientX, y: e.clientY, px: h.photoX, py: h.photoY };
+    frame.setPointerCapture(e.pointerId);
+    frame.classList.add("is-drag");
+  });
+  frame.addEventListener("pointermove", (e) => {
+    if (!start) return;
+    const r = frame.getBoundingClientRect();
+    h.photoX = Math.round((start.px + ((e.clientX - start.x) / r.width) * 100) * 10) / 10;
+    h.photoY = Math.round((start.py + ((e.clientY - start.y) / r.height) * 100) * 10) / 10;
+    apply(); dirty();
+  });
+  const end = () => { start = null; frame.classList.remove("is-drag"); };
+  frame.addEventListener("pointerup", end);
+  frame.addEventListener("pointercancel", end);
+
+  const zoomTo = (z) => { h.photoZoom = Math.round(Math.min(3, Math.max(0.4, z)) * 100) / 100; apply(); dirty(); };
+  frame.addEventListener("wheel", (e) => { e.preventDefault(); zoomTo(h.photoZoom * (e.deltaY < 0 ? 1.06 : 1 / 1.06)); }, { passive: false });
+  q("ppZoom").addEventListener("input", (e) => zoomTo(parseFloat(e.target.value)));
+  q("ppBox").addEventListener("change", (e) => { h.photoFrame = e.target.checked ? "on" : "off"; apply(); dirty(); });
+  q("ppReset").addEventListener("click", () => { h.photoX = 0; h.photoY = 0; h.photoZoom = 1; apply(); dirty(); });
+
+  apply(); load();
+  return el;
+}
+
 function drawEditor() {
   const root = $("editor");
   root.innerHTML = "";
-  SECTIONS.forEach((s) => root.appendChild(panel(s)));
+  let photo;
+  SECTIONS.forEach((s) => {
+    const p = panel(s);
+    root.appendChild(p);
+    if (s.key === "hero") {
+      photo = photoPanel();
+      root.appendChild(photo);
+      // typing a new file name reloads the preview
+      p.addEventListener("change", () => photo._reloadPhoto());
+    }
+  });
 }
 
 function dirty() {

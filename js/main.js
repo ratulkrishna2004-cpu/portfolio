@@ -43,6 +43,12 @@
     var count = function (v) {
       return String(v == null ? "" : v).replace("{awards}", c.awards.length).replace("{leadership}", c.leadership.length);
     };
+    var frame = pic.parentElement, num = function (v, d) { v = parseFloat(v); return isFinite(v) ? v : d; };
+    frame.style.setProperty("--px", num(c.hero.photoX, 0) + "%");
+    frame.style.setProperty("--py", num(c.hero.photoY, 0) + "%");
+    frame.style.setProperty("--pz", num(c.hero.photoZoom, 1));
+    frame.classList.toggle("no-frame", c.hero.photoFrame === "off");
+
     $("stats").innerHTML = c.stats.map(function (s, i) {
       return "<li><b" + (i === 0 ? ' class="accent"' : "") + ">" + esc(count(s.value)) + "</b><span>" + esc(s.label) + "</span></li>";
     }).join("");
