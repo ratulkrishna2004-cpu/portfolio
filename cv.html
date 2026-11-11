@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — Ratul Krishna Mojumder</title>
+  <meta name="description" content="Curriculum vitae of Ratul Krishna Mojumder.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="cvpage">
+
+  <header class="nav" id="nav">
+    <a href="index.html" class="nav__logo" aria-label="Home">RK</a>
+    <nav class="nav__links nav__links--plain" aria-label="Menu">
+      <a href="index.html">← Home</a>
+      <a href="files/CV_Ratul.pdf" class="nav__cv" data-cv-file download><i class="fa-solid fa-download" aria-hidden="true"></i> PDF</a>
+    </nav>
+  </header>
+
+  <main class="cv">
+    <div class="hero__bg" aria-hidden="true"></div>
+
+    <header class="cv__head">
+      <p class="eyebrow">Curriculum vitae</p>
+      <h1 id="cvName">Ratul Krishna Mojumder</h1>
+      <p class="tagline"><span class="dot"></span><span id="cvTagline"></span></p>
+      <div class="cv__contact" id="cvContact"></div>
+    </header>
+
+    <section class="cv__section"><h2><span>01</span>Profile</h2><p class="cv__profile" id="cvProfile"></p></section>
+    <section class="cv__section"><h2><span>02</span>Education</h2><ul class="cv__list" id="cvEducation"></ul></section>
+    <section class="cv__section"><h2><span>03</span>Experience</h2><ul class="cv__list" id="cvExperience"></ul></section>
+    <section class="cv__section"><h2><span>04</span>Leadership &amp; Club Activities</h2><ul class="cv__list" id="cvLeadership"></ul></section>
+    <section class="cv__section"><h2><span>05</span>Awards &amp; Achievements</h2><div id="cvAwards"></div></section>
+    <section class="cv__section"><h2><span>06</span>Projects</h2><div id="cvProjects"></div></section>
+    <section class="cv__section"><h2><span>07</span>Skills</h2><ul class="cv__skills" id="cvSkills"></ul></section>
+    <section class="cv__section"><h2><span>08</span>Languages</h2><ul class="cv__langs" id="cvLanguages"></ul></section>
+
+    <div class="cv__end">
+      <p>Want a copy to keep?</p>
+      <a href="files/CV_Ratul.pdf" class="btn btn--grad" data-cv-file download><i class="fa-solid fa-download" aria-hidden="true"></i> Download CV (PDF)</a>
+      <a href="index.html#contact" class="btn btn--ghost">Get in touch</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Ratul Krishna Mojumder</span>
+    <a href="index.html">Back to portfolio</a>
+  </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/agents.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/cv.js"></script>
+  <script type="module" src="js/live.js"></script>
+</body>
+</html>

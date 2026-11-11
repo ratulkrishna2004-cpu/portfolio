@@ -1,5 +1,4 @@
-/* Firebase connection. Paste the values from
-   Firebase console → Project settings → Your apps → Web app → "firebaseConfig".
+/* Firebase connection (values from Firebase console → Project settings → Your apps).
    These values are NOT secret (every Firebase website shows them);
    your password is never stored in this repo. */
 

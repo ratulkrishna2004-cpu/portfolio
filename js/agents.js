@@ -5,8 +5,8 @@
 (function () {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var COLORS = ["#4ade80", "#f472b6", "#facc15", "#60a5fa", "#c084fc"];
-  var COUNT = window.innerWidth < 720 ? 3 : 5;
+  var COLORS = ["#4ade80", "#f472b6", "#facc15", "#60a5fa", "#c084fc", "#fb923c", "#2dd4bf", "#f87171", "#a3e635", "#e879f9"];
+  var COUNT = window.innerWidth < 720 ? 4 : 10;
   var MOVE_MS = 380;     // cursor flight time (keep in sync with .agent transition in CSS)
   var HOLD_MS = 420;     // how long the selection box stays
   var MAX_SPARKS = 500;
@@ -172,17 +172,48 @@
     }
   }
 
-  // idle cursors keep drifting around the screen
+  /* ---------- your own mouse joins in: sparks follow it, a click casts a ring ---------- */
+  var mouse = { x: 0, y: 0, t: 0 };
+  window.addEventListener("pointermove", function (e) {
+    if (e.pointerType === "touch") return;
+    mouse.x = e.clientX; mouse.y = e.clientY; mouse.t = Date.now();
+    spark(e.clientX, e.clientY, 0.6);
+  }, { passive: true });
+  window.addEventListener("pointerdown", function (e) {
+    rings.push({ x: e.clientX, y: e.clientY, life: 0, max: 34 });
+    for (var n = 0; n < 26; n++) spark(e.clientX, e.clientY, 2.4);
+  }, { passive: true });
+
+  /* ---------- idle cursors: circle a target, follow your mouse, or wander ---------- */
+  var form = null, turn = 0;
   setInterval(function () {
-    if (document.hidden) return;
-    agents.forEach(function (a) {
-      if (a.busy || Math.random() < 0.45) return;
-      place(a, 40 + Math.random() * (window.innerWidth - 80),
-               window.scrollY + 80 + Math.random() * (window.innerHeight - 160));
+    if (document.hidden || !form) return;
+    var r = form.getBoundingClientRect();
+    var cx = r.left + r.width / 2 + window.scrollX, cy = r.top + r.height / 2 + window.scrollY;
+    var rad = Math.min(r.width, r.height) / 2 - 6, idle = agents.filter(function (a) { return !a.busy; });
+    turn += 0.2;
+    idle.forEach(function (a, i) {
+      var ang = turn + (i / idle.length) * Math.PI * 2;
+      place(a, cx + Math.cos(ang) * rad - 6, cy + Math.sin(ang) * rad - 6);
     });
-  }, 1900);
+  }, 380);
+
+  setInterval(function () {
+    if (document.hidden || form) return;
+    var near = Date.now() - mouse.t < 4000;
+    agents.forEach(function (a) {
+      if (a.busy || Math.random() < 0.4) return;
+      if (near && Math.random() < 0.6) {
+        place(a, mouse.x + (Math.random() - 0.5) * 320, window.scrollY + mouse.y + (Math.random() - 0.5) * 260);
+      } else {
+        place(a, 40 + Math.random() * (window.innerWidth - 80),
+                 window.scrollY + 80 + Math.random() * (window.innerHeight - 160));
+      }
+    });
+  }, 1700);
 
   window.Agents = {
+    formation: function (el) { form = el; },
     build: function (target) {
       if (target._queued) return;
       target._queued = true;

@@ -13,18 +13,40 @@ const ITEM = [
 ];
 const SECTIONS = [
   { key: "hero", title: "Home — main text", fields: [
-    { name: "fullName", label: "Full name (top left)" },
+    { name: "fullName", label: "Full name (top left + CV)" },
     { name: "name", label: "Name (in the coloured box)" },
     { name: "tagline", label: "Tagline" },
-    { name: "badge", label: "Text under photo" },
     { name: "photo", label: "Photo file name (inside images/ folder)" },
     { name: "description", label: "Description (**text** = bold)", type: "textarea" } ] },
-  { key: "stats", title: "Home — numbers", hint: "Type {awards} as the number to show the awards count automatically.", list: true, fields: [
+  { key: "stats", title: "Home — numbers", hint: "Type {awards}, {leadership}, {projects} or {experience} as the number to count that list automatically.", list: true, fields: [
     { name: "value", label: "Number" }, { name: "label", label: "Label" } ] },
-  { key: "leadership", title: "Leadership", hint: "The first two show on the home card; all show in the popup.", list: true, fields: ITEM },
-  { key: "awards", title: "Awards", hint: "The first two show on the home card; all show in the popup.", list: true, fields: ITEM },
-  { key: "tags", title: "Skill tags", list: true, fields: [{ name: "text", label: "Tag" }] },
-  { key: "about", title: "About", fields: [{ name: "text", label: "About text", type: "textarea" }] },
+  { key: "about", title: "About / profile", fields: [
+    { name: "text", label: "About text (home page)", type: "textarea" },
+    { name: "cvProfile", label: "Profile text (CV page)", type: "textarea" } ] },
+  { key: "education", title: "Education", list: true, fields: [
+    { name: "title", label: "School / college / university" },
+    { name: "sub", label: "Degree / certificate" },
+    { name: "tag", label: "Year" },
+    { name: "note", label: "Result (optional)" } ] },
+  { key: "experience", title: "Experience", list: true, fields: [
+    { name: "title", label: "Role" },
+    { name: "sub", label: "Organisation" },
+    { name: "tag", label: "Period" },
+    { name: "details", label: "Details (one point per line)", type: "textarea" } ] },
+  { key: "leadership", title: "Leadership", hint: "The first two show on the home card; all show in the popup and on the CV.", list: true, fields: ITEM },
+  { key: "awards", title: "Awards", hint: "The first two show on the home card. On the CV they are grouped by category.", list: true, fields: [
+    { name: "title", label: "Award" }, { name: "sub", label: "Category (e.g. Olympiad)" }, { name: "tag", label: "Year" } ] },
+  { key: "projects", title: "Projects (CV)", hint: "Grouped by category on the CV.", list: true, fields: [
+    { name: "title", label: "Project" }, { name: "sub", label: "Category (e.g. Robotics)" }, { name: "url", label: "Link (optional)" } ] },
+  { key: "skills", title: "Skills (CV)", list: true, fields: [
+    { name: "label", label: "Group" }, { name: "value", label: "Skills" } ] },
+  { key: "languages", title: "Languages (CV)", list: true, fields: [
+    { name: "title", label: "Language" }, { name: "sub", label: "Level" } ] },
+  { key: "tags", title: "Skill tags (home)", list: true, fields: [{ name: "text", label: "Tag" }] },
+  { key: "cv", title: "CV — contact line and PDF", hint: "Upload the PDF into the files/ folder of the repo, then type its file name here.", fields: [
+    { name: "phone", label: "Phone" }, { name: "email", label: "Email" },
+    { name: "address", label: "Address" }, { name: "linkedin", label: "LinkedIn link" },
+    { name: "file", label: "PDF file name (inside files/ folder)" } ] },
   { key: "socials", title: "Contact buttons", hint: "Link must be full: https://… For email use mailto:you@gmail.com, for WhatsApp use https://wa.me/8801XXXXXXXXX", list: true, fields: [
     { name: "type", label: "Icon", type: "select", options: Object.keys(window.SOCIAL_TYPES) },
     { name: "label", label: "Button text" },
@@ -107,7 +129,7 @@ function photoPanel() {
   h.photoZoom = parseFloat(h.photoZoom) || 1;
   h.photoX = parseFloat(h.photoX) || 0;
   h.photoY = parseFloat(h.photoY) || 0;
-  if (h.photoFrame !== "off") h.photoFrame = "on";
+  delete h.photoFrame; delete h.badge;   // no longer used
 
   const el = document.createElement("section");
   el.className = "panel";
@@ -115,11 +137,10 @@ function photoPanel() {
     <h2>Home — photo position</h2>
     <p>Drag the photo to move it. Scroll on it or use the slider to zoom. The photo file itself is the name typed in "Photo file name" above.</p>
     <div class="pp">
-      <div class="pp__stage"><div class="pp__frame" id="ppFrame"><img id="ppImg" alt="" draggable="false"></div></div>
+      <div class="pp__stage"><div class="pp__frame no-frame" id="ppFrame"><img id="ppImg" alt="" draggable="false"></div></div>
       <div class="pp__side">
         <label>Zoom <span id="ppZoomTxt"></span><input type="range" id="ppZoom" min="0.4" max="3" step="0.01"></label>
-        <label class="check"><input type="checkbox" id="ppBox"> Coloured box behind the photo</label>
-        <p class="pp__tip">Turn the box off for a transparent (cut-out) PNG so the ring design shows behind you.</p>
+        <p class="pp__tip">Use a transparent (cut-out) PNG so the spark ring shows behind you.</p>
         <button type="button" class="btn btn--ghost" id="ppReset">Reset position</button>
         <p class="msg" id="ppMsg"></p>
       </div>
@@ -129,10 +150,8 @@ function photoPanel() {
 
   const apply = () => {
     img.style.transform = `translate(${h.photoX}%, ${h.photoY}%) scale(${h.photoZoom})`;
-    frame.classList.toggle("no-frame", h.photoFrame === "off");
     q("ppZoom").value = h.photoZoom;
     q("ppZoomTxt").textContent = Math.round(h.photoZoom * 100) + "%";
-    q("ppBox").checked = h.photoFrame !== "off";
   };
   const load = () => {
     q("ppMsg").textContent = "";
@@ -165,7 +184,6 @@ function photoPanel() {
   const zoomTo = (z) => { h.photoZoom = Math.round(Math.min(3, Math.max(0.4, z)) * 100) / 100; apply(); dirty(); };
   frame.addEventListener("wheel", (e) => { e.preventDefault(); zoomTo(h.photoZoom * (e.deltaY < 0 ? 1.06 : 1 / 1.06)); }, { passive: false });
   q("ppZoom").addEventListener("input", (e) => zoomTo(parseFloat(e.target.value)));
-  q("ppBox").addEventListener("change", (e) => { h.photoFrame = e.target.checked ? "on" : "off"; apply(); dirty(); });
   q("ppReset").addEventListener("click", () => { h.photoX = 0; h.photoY = 0; h.photoZoom = 1; apply(); dirty(); });
 
   apply(); load();
@@ -225,7 +243,13 @@ if (!isConfigured) {
     data = JSON.parse(JSON.stringify(window.DEFAULT_CONTENT));
     try {
       const snap = await fsM.getDoc(ref);
-      if (snap.exists()) Object.assign(data, snap.data());
+      if (snap.exists()) {
+        const saved = snap.data();
+        Object.keys(saved).forEach((k) => {
+          if (Array.isArray(saved[k]) || typeof data[k] !== "object") data[k] = saved[k];
+          else Object.assign(data[k], saved[k]);
+        });
+      }
     } catch (err) {
       $("saveMsg").className = "bar__msg err";
       $("saveMsg").textContent = "Could not load saved content: " + nice(err);

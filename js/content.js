@@ -22,21 +22,61 @@ window.DEFAULT_CONTENT = {
     name: "RATUL.",
     tagline: "EEE Student & Graphic Designer",
     description: "Building **robots, IoT systems** and **visual identities** — while leading teams, mentoring Olympiad students and running the tech behind large-scale events.",
-    badge: "AUST · EEE · 2024 —",
-    photo: "profile.jpg",   // file name inside the images/ folder
+    photo: "profile.png",   // file name inside the images/ folder (transparent PNG looks best)
     photoZoom: 1,           // 1 = normal, 1.5 = zoomed in, 0.8 = zoomed out
     photoX: 0,              // move right (+) / left (-), in % of the frame
-    photoY: 0,              // move down (+) / up (-), in % of the frame
-    photoFrame: "on"        // "off" = no coloured box (for transparent PNG photos)
+    photoY: 0               // move down (+) / up (-), in % of the frame
   },
+  // {awards} {leadership} {projects} {experience} are replaced by how many entries each list has
   stats: [
-    { value: "{awards}", label: "Total awards" },   // {awards} = number of entries in the awards list
-    { value: "3000+", label: "Alumni event IT lead" },
-    { value: "5",     label: "Robotics builds" }
+    { value: "{awards}",     label: "Total awards" },
+    { value: "{leadership}", label: "Leadership roles" },
+    { value: "{projects}",   label: "Projects built" }
   ],
   about: {
-    text: "I'm an Electrical and Electronic Engineering student at Ahsanullah University of Science & Technology. I've led IT operations for a Silver Jubilee event hosting 3000+ alumni, mentored students for Physics, Chemistry and Math Olympiads, and I design graphics for the AUST Robotics Club and the IEEE APS & MTT-S student chapter."
+    text: "I'm an Electrical and Electronic Engineering student at Ahsanullah University of Science & Technology. I lead IT for my school's alumni association, mentor students for Physics, Chemistry and Math Olympiads, and design graphics for the AUST Robotics Club and the IEEE APS & MTT-S student chapter.",
+    cvProfile: "A passionate and detail-oriented Electrical and Electronic Engineering (EEE) student with leadership experience in student organizations, data management, and event coordination. Skilled in programming, IT tools, and public engagement. Proven record of leading large-scale alumni events and mentoring in science Olympiads. A fast learner with a proactive mindset, always eager to take on new responsibilities."
   },
+  cv: {
+    phone: "+8801623519646",
+    email: "ratulkrishna2004@gmail.com",
+    address: "Amlapara Chourasta, Narayanganj",
+    linkedin: "https://www.linkedin.com/in/ratul-krishna-b09i24/",
+    file: "CV_Ratul.pdf"    // PDF file name inside the files/ folder
+  },
+  education: [
+    { title: "Ahsanullah University of Science & Technology (AUST)", sub: "B.Sc. in Electrical and Electronic Engineering (EEE)", tag: "2024 — Present", note: "" },
+    { title: "Notre Dame College, Dhaka", sub: "Higher Secondary Certificate (HSC)", tag: "2023", note: "GPA 5.00" },
+    { title: "Narayanganj Ideal School", sub: "Secondary School Certificate (SSC)", tag: "2021", note: "GPA 5.00" }
+  ],
+  experience: [
+    { title: "IT Head — Alumni Association (Silver Jubilee 2025)", sub: "Narayanganj Ideal School", tag: "2024 — Present",
+      details: "Led IT operations for the Silver Jubilee event hosting 3000+ alumni\nCollected, organized, and managed alumni data single-handedly\nCoordinated with event, registration, and tech support teams" },
+    { title: "Instructor — KnowMads", sub: "Offline Admission (NDC, HCC, SJS)", tag: "2022 — 2023", details: "" },
+    { title: "Olympiad Instructor", sub: "Narayanganj Ideal School", tag: "2019 — 2024",
+      details: "Mentored students (classes 6–9) in Physics, Chemistry & Math Olympiads\nConducted workshops, solved problem sets, and provided feedback" }
+  ],
+  projects: [
+    { title: "Soccer Bot", sub: "Robotics", url: "" },
+    { title: "Smart Parking System (IoT based)", sub: "Robotics", url: "" },
+    { title: "FPV Drone", sub: "Robotics", url: "" },
+    { title: "Smart Water Filtering System", sub: "Robotics", url: "" },
+    { title: "Spherical Bot", sub: "Robotics", url: "" },
+    { title: "Departmental study material & multitasking website (designed & developed)", sub: "Web-based", url: "https://www.spardho53.xyz" },
+    { title: "Smart Room Tracking System website — AUST Robotics Club Bootcamp & Room System (designed & developed)", sub: "Web-based", url: "" }
+  ],
+  skills: [
+    { label: "Programming", value: "C, C++, HTML" },
+    { label: "Software", value: "MS Word, Excel, PowerPoint (Expert), Canva Graphics Design, Quartus II, LTSpice, AutoCAD, PSpice" },
+    { label: "IT & Tech", value: "Online Event Management, Data Handling, Google Workspace, IoT Expert, Graphic Designer" },
+    { label: "Soft Skills", value: "Leadership, Public Speaking, Team Collaboration" },
+    { label: "Hobbies", value: "Singing, Archery" }
+  ],
+  languages: [
+    { title: "Bengali", sub: "Native" },
+    { title: "English", sub: "Fluent" },
+    { title: "Hindi", sub: "Fluent" }
+  ],
   tags: [
     { text: "C / C++" }, { text: "IoT" }, { text: "HTML" },
     { text: "Canva" }, { text: "AutoCAD" }, { text: "LTSpice" }
@@ -50,7 +90,6 @@ window.DEFAULT_CONTENT = {
     { title: "Mentor, ARC Bootcamp Wing-1 (Embedded System)", sub: "AUST Robotics Club", tag: "2026 — Present" },
     { title: "Senior Sub-Executive (GFX)", sub: "AUST Robotics Club", tag: "Feb 2026 — Jul 2026" },
     { title: "Junior Executive", sub: "AUST Robotics Club", tag: "Jul 2025 — Feb 2026" },
-    { title: "IT Head, Alumni Association (Silver Jubilee 2025)", sub: "Narayanganj Ideal School", tag: "2024 — Present" },
     { title: "President, Science Club", sub: "Narayanganj Ideal School", tag: "2019 — 2021" },
     { title: "Secretary, Math Club", sub: "Narayanganj Ideal School", tag: "2019 — 2021" }
   ],

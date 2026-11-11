@@ -5,15 +5,20 @@ Base design: menu bar + home page (hero, about, work, contact).
 ## Files
 
 ```
-index.html             main page
+index.html             home page
+cv.html                CV page (opens from the CV button)
 css/style.css          all design (colours are at the top, in :root)
 js/content.js          default text, lists and contact buttons
-js/main.js             shows the content, menu, popups
-js/agents.js           the moving-cursor "build" effect
-js/firebase-config.js  paste your Firebase config here
+js/core.js             shared helpers
+js/main.js             home page logic, popups
+js/cv.js               CV page logic
+js/agents.js           moving cursors + sparks effect
+js/portal.js           spark ring behind the photo
+js/firebase-config.js  Firebase connection
 js/live.js             loads saved content from Firebase
 admin/                 admin panel -> open <site link>/admin/
-images/                put your pictures here
+images/                your photo (profile.png)
+files/                 CV_Ratul.pdf (the download button uses this)
 FIREBASE-SETUP.md      how to connect Firebase (one time)
 ```
 
@@ -26,8 +31,8 @@ FIREBASE-SETUP.md      how to connect Firebase (one time)
 
 ## Your photo
 
-Upload your photo to the `images` folder with the name **`profile.jpg`**.
-A portrait photo (4:5, e.g. 800×1000) looks best. Until it is uploaded the
+Upload your photo to the `images` folder with the name **`profile.png`**.
+A transparent (cut-out) portrait PNG looks best in front of the spark ring. Until it is uploaded the
 site shows "RK" in its place.
 
 ## Admin
