@@ -130,6 +130,7 @@ function photoPanel() {
   h.photoX = parseFloat(h.photoX) || 0;
   h.photoY = parseFloat(h.photoY) || 0;
   delete h.photoFrame; delete h.badge;   // no longer used
+  if (h.photoCircle !== "on") h.photoCircle = "off";
 
   const el = document.createElement("section");
   el.className = "panel";
@@ -137,10 +138,14 @@ function photoPanel() {
     <h2>Home — photo position</h2>
     <p>Drag the photo to move it. Scroll on it or use the slider to zoom. The photo file itself is the name typed in "Photo file name" above.</p>
     <div class="pp">
-      <div class="pp__stage"><div class="pp__frame no-frame" id="ppFrame"><img id="ppImg" alt="" draggable="false"></div></div>
+      <div class="pp__stage"><div class="pp__box">
+        <span class="pp__ring"></span><span class="pp__ring pp__ring--crop"></span>
+        <div class="pp__frame no-frame" id="ppFrame"><img id="ppImg" alt="" draggable="false"></div>
+      </div></div>
       <div class="pp__side">
         <label>Zoom <span id="ppZoomTxt"></span><input type="range" id="ppZoom" min="0.4" max="3" step="0.01"></label>
-        <p class="pp__tip">Use a transparent (cut-out) PNG so the ring design shows behind you.</p>
+        <label class="check"><input type="checkbox" id="ppCircle"> Crop photo to the circle</label>
+        <p class="pp__tip">The dashed circle is where the photo gets cut. Drag and zoom until you sit inside it the way you like. A transparent (cut-out) PNG looks best.</p>
         <button type="button" class="btn btn--ghost" id="ppReset">Reset position</button>
         <p class="msg" id="ppMsg"></p>
       </div>
@@ -150,6 +155,8 @@ function photoPanel() {
 
   const apply = () => {
     img.style.transform = `translate(${h.photoX}%, ${h.photoY}%) scale(${h.photoZoom})`;
+    frame.classList.toggle("is-circle", h.photoCircle === "on");
+    q("ppCircle").checked = h.photoCircle === "on";
     q("ppZoom").value = h.photoZoom;
     q("ppZoomTxt").textContent = Math.round(h.photoZoom * 100) + "%";
   };
@@ -184,6 +191,7 @@ function photoPanel() {
   const zoomTo = (z) => { h.photoZoom = Math.round(Math.min(3, Math.max(0.4, z)) * 100) / 100; apply(); dirty(); };
   frame.addEventListener("wheel", (e) => { e.preventDefault(); zoomTo(h.photoZoom * (e.deltaY < 0 ? 1.06 : 1 / 1.06)); }, { passive: false });
   q("ppZoom").addEventListener("input", (e) => zoomTo(parseFloat(e.target.value)));
+  q("ppCircle").addEventListener("change", (e) => { h.photoCircle = e.target.checked ? "on" : "off"; apply(); dirty(); });
   q("ppReset").addEventListener("click", () => { h.photoX = 0; h.photoY = 0; h.photoZoom = 1; apply(); dirty(); });
 
   apply(); load();

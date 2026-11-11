@@ -25,7 +25,8 @@ window.DEFAULT_CONTENT = {
     photo: "profile.png",   // file name inside the images/ folder (transparent PNG looks best)
     photoZoom: 1,           // 1 = normal, 1.5 = zoomed in, 0.8 = zoomed out
     photoX: 0,              // move right (+) / left (-), in % of the frame
-    photoY: 0               // move down (+) / up (-), in % of the frame
+    photoY: 0,              // move down (+) / up (-), in % of the frame
+    photoCircle: "off"      // "on" = crop the photo to the round ring behind it
   },
   // {awards} {leadership} {projects} {experience} are replaced by how many entries each list has
   stats: [

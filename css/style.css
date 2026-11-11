@@ -229,6 +229,8 @@ img { display: block; max-width: 100%; }
   transform: translate(var(--px, 0%), var(--py, 0%)) scale(var(--pz, 1));
   filter: drop-shadow(0 18px 40px rgba(0,0,0,.6));
 }
+/* crop to the dashed ring behind the photo (64.1% = that ring's radius for a 4:5 box) */
+.photo.is-circle { clip-path: circle(64.1% at 50% 50%); }
 .photo__fallback {
   display: none; position: absolute; inset: 12% 14%; place-items: center; border-radius: 50%;
   background: var(--grad);

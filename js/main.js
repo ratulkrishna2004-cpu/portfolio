@@ -45,6 +45,7 @@
     frame.style.setProperty("--px", num(c.hero.photoX, 0) + "%");
     frame.style.setProperty("--py", num(c.hero.photoY, 0) + "%");
     frame.style.setProperty("--pz", num(c.hero.photoZoom, 1));
+    frame.classList.toggle("is-circle", c.hero.photoCircle === "on");
 
     $("stats").innerHTML = c.stats.map(function (s, i) {
       return "<li><b" + (i === 0 ? ' class="accent"' : "") + ">" + esc(count(s.value)) + "</b><span>" + esc(s.label) + "</span></li>";
