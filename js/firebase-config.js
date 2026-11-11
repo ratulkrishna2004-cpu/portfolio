@@ -4,12 +4,13 @@
    your password is never stored in this repo. */
 
 export const firebaseConfig = {
-  apiKey: "PASTE_HERE",
-  authDomain: "PASTE_HERE",
-  projectId: "PASTE_HERE",
-  storageBucket: "PASTE_HERE",
-  messagingSenderId: "PASTE_HERE",
-  appId: "PASTE_HERE"
+  apiKey: "AIzaSyA9cqp7iwR21D2rUFkU9BWWgZBhkXk0I0E",
+  authDomain: "ratul-krishna.firebaseapp.com",
+  projectId: "ratul-krishna",
+  storageBucket: "ratul-krishna.firebasestorage.app",
+  messagingSenderId: "1016386683608",
+  appId: "1:1016386683608:web:c3754ea7f0bb93f6088dad",
+  measurementId: "G-YB4LFP4NRL"
 };
 
 // Only this account may use /admin (also enforced by the Firestore rules).
