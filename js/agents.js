@@ -6,9 +6,10 @@
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   var COLORS = ["#4ade80", "#f472b6", "#facc15", "#60a5fa", "#c084fc", "#fb923c", "#2dd4bf", "#f87171", "#a3e635", "#e879f9"];
-  var COUNT = window.innerWidth < 720 ? 4 : 10;
-  var MOVE_MS = 380;     // cursor flight time (keep in sync with .agent transition in CSS)
-  var HOLD_MS = 420;     // how long the selection box stays
+  var PHONE = window.innerWidth < 720;
+  var COUNT = PHONE ? 6 : 10;
+  var MOVE_MS = PHONE ? 260 : 380;   // cursor flight time
+  var HOLD_MS = PHONE ? 300 : 420;   // how long the selection box stays
   var MAX_SPARKS = 500;
 
   var layer = document.createElement("div");
@@ -21,6 +22,7 @@
   for (var i = 0; i < COUNT; i++) {
     var el = document.createElement("div");
     el.className = "agent";
+    el.style.transitionDuration = MOVE_MS + "ms";
     el.innerHTML =
       '<svg width="20" height="22" viewBox="0 0 20 22"><path d="M2 2l15 8.2-6.6 1.7L7 18.5z" fill="' +
       COLORS[i] + '" stroke="#0b0b0d" stroke-width="1.4" stroke-linejoin="round"/></svg>';
@@ -34,7 +36,7 @@
     a.x = x; a.y = y;
     if (instant) { a.el.style.transition = "none"; a.px = null; }
     a.el.style.transform = "translate(" + x + "px," + y + "px)";
-    if (instant) { a.el.offsetWidth; a.el.style.transition = ""; }
+    if (instant) { a.el.offsetWidth; a.el.style.transition = ""; a.el.style.transitionDuration = MOVE_MS + "ms"; }
   }
   function inView(a) {
     return a.y > window.scrollY - 150 && a.y < window.scrollY + window.innerHeight + 150;

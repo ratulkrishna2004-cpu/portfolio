@@ -63,20 +63,33 @@ window.Core = (function () {
 
   function nav() {
     var bar = document.getElementById("nav");
-    var onScroll = function () { bar.classList.toggle("is-scrolled", window.scrollY > 20); };
+    var burger = document.getElementById("burger"), links = document.getElementById("navLinks");
+    var isOpen = function () { return links && links.classList.contains("is-open"); };
+
+    // on phones the bar slides away while scrolling down and returns when scrolling up
+    var lastY = window.scrollY;
+    var onScroll = function () {
+      var y = window.scrollY;
+      bar.classList.toggle("is-scrolled", y > 20);
+      if (!isOpen()) {
+        if (y > lastY + 6 && y > 140) bar.classList.add("is-away");
+        else if (y < lastY - 6 || y < 140) bar.classList.remove("is-away");
+      }
+      lastY = y;
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    var burger = document.getElementById("burger"), links = document.getElementById("navLinks");
+
     if (!burger) return;
-    burger.addEventListener("click", function () {
-      burger.setAttribute("aria-expanded", links.classList.toggle("is-open"));
-    });
-    links.addEventListener("click", function (e) {
-      if (e.target.closest("a")) {
-        links.classList.remove("is-open");
-        burger.setAttribute("aria-expanded", "false");
-      }
-    });
+    var setOpen = function (open) {
+      links.classList.toggle("is-open", open);
+      burger.setAttribute("aria-expanded", open);
+      burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.documentElement.classList.toggle("menu-open", open);
+    };
+    burger.addEventListener("click", function () { setOpen(!isOpen()); });
+    links.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
   }
 
   // "a\nb" -> <li>a</li><li>b</li>
