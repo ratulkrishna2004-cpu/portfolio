@@ -212,11 +212,16 @@ img { display: block; max-width: 100%; }
 
 /* photo */
 .hero__photo { position: relative; padding-top: clamp(40px, 9vw, 150px); }
-.portal {
+/* slow-turning ring behind the photo */
+.sigil {
   position: absolute; left: 50%; top: calc(50% + clamp(20px, 4.5vw, 75px));
-  width: 190%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  width: 165%; transform: translate(-50%, -50%);
+  fill: none; stroke: #f5a524; stroke-width: .7; opacity: .42;
   pointer-events: none;
 }
+.sigil g { transform-origin: 0 0; will-change: transform; }
+.sigil__a { animation: spin 60s linear infinite; }
+.sigil__b { animation: spin 40s linear infinite reverse; stroke: #c084fc; }
 .photo { position: relative; z-index: 1; aspect-ratio: 4 / 5; }
 .photo img {
   width: 100%; height: 100%; object-fit: contain; object-position: bottom;
@@ -522,7 +527,7 @@ img { display: block; max-width: 100%; }
   .hero__giant { padding-top: 96px; }
   .hero__grid { grid-template-columns: 1fr; margin-top: -8px; }
   .hero__photo { padding-top: 10px; max-width: 320px; }
-  .portal { top: 50%; width: 150%; }
+  .sigil { top: 50%; }
   .nav__name { margin-right: auto; font-size: 10.5px; letter-spacing: .8px; }
   .cards { grid-template-columns: 1fr; }
   .work, .edu, .contact { grid-template-columns: 1fr; }

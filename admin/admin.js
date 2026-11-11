@@ -140,7 +140,7 @@ function photoPanel() {
       <div class="pp__stage"><div class="pp__frame no-frame" id="ppFrame"><img id="ppImg" alt="" draggable="false"></div></div>
       <div class="pp__side">
         <label>Zoom <span id="ppZoomTxt"></span><input type="range" id="ppZoom" min="0.4" max="3" step="0.01"></label>
-        <p class="pp__tip">Use a transparent (cut-out) PNG so the spark ring shows behind you.</p>
+        <p class="pp__tip">Use a transparent (cut-out) PNG so the ring design shows behind you.</p>
         <button type="button" class="btn btn--ghost" id="ppReset">Reset position</button>
         <p class="msg" id="ppMsg"></p>
       </div>

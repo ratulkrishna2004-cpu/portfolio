@@ -57,9 +57,19 @@
           <ul class="stats reveal" id="stats"></ul>
         </div>
 
-        <!-- photo (file lives in the repo's images/ folder) standing in front of the spark ring -->
+        <!-- photo (file lives in the repo's images/ folder) in front of the slow-turning ring -->
         <div class="hero__photo reveal">
-          <canvas class="portal" id="portal" aria-hidden="true"></canvas>
+          <svg class="sigil" viewBox="-100 -100 200 200" aria-hidden="true">
+            <g class="sigil__a">
+              <circle r="96"/><circle r="88" stroke-dasharray="2 5"/>
+              <rect x="-62" y="-62" width="124" height="124"/>
+              <rect x="-62" y="-62" width="124" height="124" transform="rotate(45)"/>
+            </g>
+            <g class="sigil__b">
+              <circle r="74"/><circle r="66" stroke-dasharray="10 4 2 4"/>
+              <polygon points="0,-66 57,33 -57,33"/><polygon points="0,66 57,-33 -57,-33"/>
+            </g>
+          </svg>
           <div class="photo">
             <img alt="Ratul Krishna Mojumder" id="profilePic">
             <div class="photo__fallback" aria-hidden="true">RK</div>
@@ -157,7 +167,6 @@
   <script src="js/agents.js"></script>
   <script src="js/core.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/portal.js"></script>
   <script type="module" src="js/live.js"></script>
 </body>
 </html>

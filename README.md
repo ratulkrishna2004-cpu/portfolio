@@ -13,7 +13,6 @@ js/core.js             shared helpers
 js/main.js             home page logic, popups
 js/cv.js               CV page logic
 js/agents.js           moving cursors + sparks effect
-js/portal.js           spark ring behind the photo
 js/firebase-config.js  Firebase connection
 js/live.js             loads saved content from Firebase
 admin/                 admin panel -> open <site link>/admin/
@@ -32,7 +31,7 @@ FIREBASE-SETUP.md      how to connect Firebase (one time)
 ## Your photo
 
 Upload your photo to the `images` folder with the name **`profile.png`**.
-A transparent (cut-out) portrait PNG looks best in front of the spark ring. Until it is uploaded the
+A transparent (cut-out) portrait PNG looks best in front of the ring design. Until it is uploaded the
 site shows "RK" in its place.
 
 ## Admin
