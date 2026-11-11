@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Admin — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- shown when Firebase is not connected yet -->
+  <section class="box" id="viewSetup" hidden>
+    <h1>Admin</h1>
+    <p class="note">Firebase is not connected yet. Follow <b>FIREBASE-SETUP.md</b> in the repo, paste your config into <code>js/firebase-config.js</code>, and this page becomes your login.</p>
+    <a class="link" href="../">← Back to site</a>
+  </section>
+
+  <!-- login -->
+  <section class="box" id="viewLogin" hidden>
+    <h1>Admin</h1>
+    <form id="loginForm">
+      <label>Email<input type="email" id="email" autocomplete="username" required></label>
+      <label>Password<input type="password" id="password" autocomplete="current-password" required></label>
+      <button class="btn" type="submit">Log in</button>
+      <button class="link" type="button" id="forgot">Forgot password?</button>
+      <p class="msg" id="loginMsg" role="status"></p>
+    </form>
+    <a class="link" href="../">← Back to site</a>
+  </section>
+
+  <!-- editor -->
+  <div id="viewEditor" hidden>
+    <header class="bar">
+      <strong>Portfolio admin</strong>
+      <span class="bar__msg" id="saveMsg" role="status"></span>
+      <a class="link" href="../" target="_blank" rel="noopener">View site ↗</a>
+      <button class="btn btn--ghost" id="logout" type="button">Log out</button>
+      <button class="btn" id="save" type="button">Save changes</button>
+    </header>
+
+    <main class="editor" id="editor"></main>
+
+    <section class="panel editor__pw">
+      <h2>Change password</h2>
+      <form id="pwForm" class="grid">
+        <label>Current password<input type="password" id="pwOld" autocomplete="current-password" required></label>
+        <label>New password (min 6)<input type="password" id="pwNew" autocomplete="new-password" minlength="6" required></label>
+        <button class="btn btn--ghost" type="submit">Update password</button>
+        <p class="msg" id="pwMsg" role="status"></p>
+      </form>
+    </section>
+  </div>
+
+  <script src="../js/content.js"></script>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

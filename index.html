@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -16,6 +17,7 @@
   <!-- ============ MENU BAR ============ -->
   <header class="nav" id="nav">
     <a href="#home" class="nav__logo" aria-label="Home">RK</a>
+    <span class="nav__name" id="navName">Ratul Krishna Mojumder</span>
     <nav class="nav__links" id="navLinks" aria-label="Main menu">
       <a href="#home" class="is-active">Home</a>
       <a href="#about">About</a>
@@ -38,17 +40,18 @@
     <!-- ============ HOME / HERO ============ -->
     <section class="hero" id="home">
       <div class="hero__bg" aria-hidden="true"></div>
+      <a href="#home" class="brand" id="brand">Ratul Krishna Mojumder</a>
       <h2 class="hero__giant" aria-hidden="true">PORTFOLIO</h2>
 
       <div class="hero__grid">
         <!-- left -->
         <div class="hero__intro">
           <p class="hero__hello reveal">Hello, I'm</p>
-          <h1 class="hero__name reveal" data-edit="hero.name">RATUL.</h1>
+          <h1 class="hero__name reveal" id="heroName">RATUL.</h1>
 
-          <p class="tagline reveal"><span class="dot"></span><span data-edit="hero.tagline">EEE Student &amp; Graphic Designer</span></p>
+          <p class="tagline reveal"><span class="dot"></span><span id="heroTagline">EEE Student &amp; Graphic Designer</span></p>
 
-          <p class="hero__desc reveal" data-edit="hero.description">
+          <p class="hero__desc reveal" id="heroDesc">
             Building <strong>robots, IoT systems</strong> and <strong>visual identities</strong> —
             while leading teams, mentoring Olympiad students and running the tech behind
             large-scale events.
@@ -59,44 +62,33 @@
             <a href="#contact" class="btn btn--solid">Get in touch</a>
           </div>
 
-          <ul class="stats reveal" id="stats">
-            <li><b class="red">6×</b><span>Champion<br>titles</span></li>
-            <li><b>3000+</b><span>Alumni event<br>IT lead</span></li>
-            <li><b>5</b><span>Robotics<br>builds</span></li>
-          </ul>
+          <ul class="stats reveal" id="stats"></ul>
         </div>
 
         <!-- middle: photo (file lives in the repo: images/profile.jpg) -->
         <div class="hero__photo reveal">
+          <svg class="sigil" viewBox="-100 -100 200 200" aria-hidden="true">
+            <g class="sigil__a">
+              <circle r="96"/><circle r="88" stroke-dasharray="2 5"/>
+              <rect x="-62" y="-62" width="124" height="124"/>
+              <rect x="-62" y="-62" width="124" height="124" transform="rotate(45)"/>
+            </g>
+            <g class="sigil__b">
+              <circle r="74"/><circle r="66" stroke-dasharray="10 4 2 4"/>
+              <polygon points="0,-66 57,33 -57,33"/><polygon points="0,66 57,-33 -57,-33"/>
+            </g>
+          </svg>
           <div class="photo">
-            <img src="images/profile.jpg" alt="Ratul Krishna Mojumder" id="profilePic" data-edit-img="hero.photo">
+            <img src="images/profile.jpg" alt="Ratul Krishna Mojumder" id="profilePic">
             <div class="photo__fallback" aria-hidden="true">RK</div>
           </div>
-          <p class="photo__badge"><span class="dot"></span><span data-edit="hero.badge">AUST · EEE · 2024 —</span></p>
+          <p class="photo__badge"><span class="dot"></span><span id="heroBadge">AUST · EEE · 2024 —</span></p>
         </div>
 
-        <!-- right: highlights -->
+        <!-- right: Leadership + Awards cards ("See all" opens a popup) -->
         <aside class="hero__side reveal">
-          <ol class="highlights" id="highlights">
-            <li>
-              <div class="highlights__top"><span>01.</span><em>Leadership</em></div>
-              <h3>AUST Robotics Club</h3>
-              <p>Assistant Director, GFX team. Bootcamp mentor — Embedded Systems.</p>
-            </li>
-            <li>
-              <div class="highlights__top"><span>02.</span><em>Mentoring</em></div>
-              <h3>IJSO Team Bangladesh</h3>
-              <p>Mentor of the International Junior Science Olympiad team; BDJSO academic team.</p>
-            </li>
-            <li>
-              <div class="highlights__top"><span>03.</span><em>Award</em></div>
-              <h3>Techfest, IIT Bombay</h3>
-              <p>1st Runner-up, Bangladesh Zonal 2026.</p>
-            </li>
-          </ol>
-          <ul class="tags" id="tags">
-            <li>C / C++</li><li>IoT</li><li>HTML</li><li>Canva</li><li>AutoCAD</li><li>LTSpice</li>
-          </ul>
+          <div class="cards" id="cards"></div>
+          <ul class="tags" id="tags"></ul>
         </aside>
       </div>
 
@@ -108,7 +100,7 @@
       <p class="eyebrow">Profile</p>
       <h2 class="section__title">Background</h2>
       <div class="about">
-        <p class="about__text" data-edit="about.text">
+        <p class="about__text" id="aboutText">
           I'm an Electrical and Electronic Engineering student at Ahsanullah University of
           Science &amp; Technology. I've led IT operations for a Silver Jubilee event hosting
           3000+ alumni, mentored students for Physics, Chemistry and Math Olympiads, and I
@@ -146,10 +138,7 @@
     <section class="section contact" id="contact">
       <p class="eyebrow">Contact</p>
       <h2 class="contact__title">Let's build something<br>together.</h2>
-      <div class="contact__links">
-        <a class="btn btn--solid" href="mailto:ratulkrishna2004@gmail.com" data-edit-href="contact.email">ratulkrishna2004@gmail.com</a>
-        <a class="btn btn--ghost" href="https://www.linkedin.com/in/ratul-krishna-b09i24/" target="_blank" rel="noopener">LinkedIn ↗</a>
-      </div>
+      <div class="contact__links" id="socials"></div>
     </section>
   </main>
 
@@ -158,7 +147,21 @@
     <span>Narayanganj, Bangladesh</span>
   </footer>
 
+  <!-- popup for "See all" -->
+  <dialog class="modal" id="modal" aria-labelledby="modalTitle">
+    <header class="modal__head">
+      <div>
+        <p class="eyebrow" id="modalKicker"></p>
+        <h2 id="modalTitle"></h2>
+      </div>
+      <button type="button" class="modal__close" id="modalClose" aria-label="Close">✕</button>
+    </header>
+    <ol class="modal__list" id="modalList"></ol>
+  </dialog>
+
+  <script src="js/content.js"></script>
   <script src="js/agents.js"></script>
   <script src="js/main.js"></script>
+  <script type="module" src="js/live.js"></script>
 </body>
 </html>
